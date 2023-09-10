@@ -20,4 +20,15 @@ class UserService
 
         return $user->userCodes()->first()->code;
     }
+
+    public function createNewCode()
+    {
+        $user = auth()->user();
+
+        $user->userCodes()->create([
+            'code' => Str::random(10),
+        ]);
+
+        return $user->userCodes()->first()->code;
+    }
 }

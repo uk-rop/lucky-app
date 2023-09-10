@@ -2,6 +2,7 @@
 
 @php
     $baseUrl = url('/');
+    $userCode = $userCode ?? '';
 @endphp
 
 @section('content')

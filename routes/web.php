@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RandomController;
+use App\Http\Controllers\InfoPageController;
 use App\Http\Controllers\MainPageController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\UserCodesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,12 +24,18 @@ Auth::routes([
 ]);
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', [MainPageController::class, 'index']);
-    // Route::get('/getregister', [RegisterController::class, 'showRegistrationForm'])->name('getRegister');
-    // Route::post('/register', [RegisterController::class, 'register']);
+    Route::get('/', [MainPageController::class, 'index'])->name('mainpage');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/infopage', [InfoPageController::class, 'index'])->name('infopage');
+    Route::post('/random', [RandomController::class, 'tryYourLuck'])->name('random');
+    Route::get('history', [RandomController::class, 'history'])->name('history');
+    Route::get('/generateLink', [UserCodesController::class, 'generateLink'])->name('generateLink');
+    Route::post('/removeAll', [UserCodesController::class, 'removeAll'])->name('removeAll');
+    Route::post('/{code}/remove', [UserCodesController::class, 'remove'])->name('removeOne');
 });
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/infopage', [App\Http\Controllers\InfoPageController::class, 'index'])->name('infopage');
+
+Route::get('/{code}', [App\Http\Controllers\AuthController::class, 'loginWithCode'])->name('loginWithCode');
+
+// Route::get('/')

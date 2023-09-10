@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -46,5 +45,10 @@ class User extends Authenticatable
     public function userCodes(): HasMany
     {
         return $this->hasMany(UserCodes::class);
+    }
+
+    public function spins(): HasMany
+    {
+        return $this->hasMany(Spin::class);
     }
 }
